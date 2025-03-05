@@ -1,0 +1,63 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Logs & Debugging
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor & IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build files
+/dist
+/build
+/.cache
+/out
+/temp
+
+# React & Frontend specific
+/client/node_modules
+/client/.env
+/client/build
+/client/.next/
+client/.eslintcache
+client/.parcel-cache/
+client/.cache/
+
+# Backend specific
+/server/node_modules
+/server/.env
+/server/dist/
+server/debug.log
+server/temp/
+
+# MongoDB-specific files
+mongodb-data/
+dump/
+*.pem  # If you're using SSL certificates for MongoDB
+*.lock  # Lock files for MongoDB processes
+
+# Docker
+docker-compose.override.yml
