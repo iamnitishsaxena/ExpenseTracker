@@ -83,7 +83,7 @@ const LogExpense = () => {
                 <Dropdown
                     label="Expense Category"
                     id='expense-type-label'
-                    value={data.type}
+                    value={data.category}
                     handleChange={handleChange}
                     name="category"
                     options={options.category}
