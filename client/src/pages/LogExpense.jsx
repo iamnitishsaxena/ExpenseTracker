@@ -8,6 +8,7 @@ import { saveExpense } from "../components/services/api";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 const Component = styled(Box)({
     padding: '80px 200px',
@@ -41,10 +42,10 @@ const FormWrapper = styled(Box) ({
 })
 
 const defaultObj = {
-    amount: '',
-    category: [],
+    amount: 0,
+    category: '',
     description: '',
-    date: '',
+    date: null,
 }
 
 const options = {
@@ -56,11 +57,15 @@ const LogExpense = () => {
     const [data, setData] = useState(defaultObj);
     const image = "expense2.png";
 
-    const handleChange = (e) => {
-        setData({...data, [e.target.name]: e.target.value});
-    }
+    const handleChange = (e, field) => {
+        if (field === "date") {
+            setData({ ...data, date: e ? e.format("MM/DD/YYYY") : "" });
+        } else {
+            setData({ ...data, [e.target.name]: e.target.value });
+        }
+    };
 
-    const saveExpense = async () => {
+    const saveExpenses = async () => {
         await saveExpense(data);
         navigate(routePath.expenses);
     }
@@ -96,12 +101,13 @@ const LogExpense = () => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker 
                     label="Select a Date" 
-                    onChange={handleChange}
-                    name="date"
+                    value={data.date ? dayjs(data.date) : null}
+                    onChange={(newValue) => handleChange(newValue, "date")} 
+                    renderInput={(params) => <TextField {...params} />}
                     />
                 </LocalizationProvider>
                 
-                <Button variant="contained" onClick={() => saveExpense()}>Save Expense</Button>
+                <Button variant="contained" onClick={() => saveExpenses()}>Save Expense</Button>
             </FormWrapper>
         </Component>
         </>

@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-const API_URL = "http://localhost:8080";
+const API_URL = "http://localhost:8080/api";
 export const saveExpense = async (payload)=> {
+    console.log("Sending expense data:", payload);
     try {
     return await axios.post(`${API_URL}/log`, payload)
     } catch (error){

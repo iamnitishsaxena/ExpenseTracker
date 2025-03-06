@@ -163,10 +163,10 @@ const AllExpense = () => {
                 <Table>
                     <TableHead>
                         <TableRow style={{ fontSize: "1500px" }}>
-                            <TableCell style={{ width: "15%", fontSize: "18px" }} align="center"><b>Date</b></TableCell>
-                            <TableCell style={{ width: "15%", fontSize: "18px" }} align="center"><b>Amount</b></TableCell>
-                            <TableCell style={{ width: "20%", fontSize: "18px" }} align="center"><b>Category</b></TableCell>
-                            <TableCell style={{ width: "50%", fontSize: "18px" }} align="center"><b>Description</b></TableCell>
+                            <TableCell style={{ width: "15%", fontSize: "18px" }}><b>Date</b></TableCell>
+                            <TableCell style={{ width: "15%", fontSize: "18px" }}><b>Amount</b></TableCell>
+                            <TableCell style={{ width: "20%", fontSize: "18px" }}><b>Category</b></TableCell>
+                            <TableCell style={{ width: "50%", fontSize: "18px" }}><b>Description</b></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
