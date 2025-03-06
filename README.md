@@ -54,6 +54,8 @@ PORT=8080
 # Start the server
 npm run dev
 ```
-* Open in Browser
+* Open in Browser<br>
 Navigate to http://localhost:3000 to access the application.
 
+## Demo Video
+[Click here to watch the demo](./demo.mov)
