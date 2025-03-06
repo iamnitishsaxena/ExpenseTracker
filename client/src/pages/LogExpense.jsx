@@ -59,7 +59,7 @@ const LogExpense = () => {
 
     const handleChange = (e, field) => {
         if (field === "date") {
-            setData({ ...data, date: e ? e.format("MM/DD/YYYY") : "" });
+            setData({ ...data, date: e ? dayjs(e).format("YYYY-MM-DD") : null });
         } else {
             setData({ ...data, [e.target.name]: e.target.value });
         }

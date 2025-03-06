@@ -1,10 +1,9 @@
 const Expense = require('../models/Expense');
 
 const addExpense = async (req, res) => {
-    console.log("Request Body:", req.body);
     try {
         const { description, amount, category, date } = req.body;
-        const parsedDate = new Date(date);
+        const parsedDate = new Date(date + 'T00:00:00.000+05:30');
 
         if (isNaN(parsedDate.getTime())) {
             return res.status(400).json({ message: 'Invalid date format' });
@@ -22,7 +21,7 @@ const getExpenses = async (req, res) => {
         const expenses = await Expense.find();
         const formattedExpenses = expenses.map(expense => ({
             ...expense._doc, 
-            date: expense.date.toISOString().split('T')[0]
+            date: expense.date.toLocaleDateString('en-IN')
         }));
         res.status(200).json(formattedExpenses);
     } catch (error) {
@@ -35,12 +34,12 @@ const filterExpenses = async (req, res) => {
         const { category, date } = req.query;
         const filter = {};
         if (category) filter.category = category;
-        if (date) filter.date = new Date(date);
+        if (date) filter.date = new Date(date + 'T00:00:00.000+05:30');
 
         const expenses = await Expense.find(filter);
         const formattedExpenses = expenses.map(expense => ({
             ...expense._doc,
-            date: expense.date.toISOString().split('T')[0]
+            date: expense.date.toLocaleDateString('en-IN')
         }));
 
         res.status(200).json(formattedExpenses);
@@ -52,10 +51,17 @@ const filterExpenses = async (req, res) => {
 const getTotalExpenses = async (req, res) => {
     try {
         const { start, end } = req.query;
-        const startDate = new Date(start);
-        const endDate = new Date(end);
-
+        if (!start || !end) {
+            return res.status(400).json({ message: "Start and end dates are required." });
+        }
+    
+        const startDate = new Date(start + 'T00:00:00.000+05:30');
+        const endDate = new Date(end + 'T23:59:59.999+05:30');
         endDate.setHours(23, 59, 59, 999);
+
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            return res.status(400).json({ message: "Invalid date format." });
+        }
 
         const expenses = await Expense.find({
             date: { $gte: startDate, $lte: endDate }

@@ -2,7 +2,6 @@ import axios from 'axios'
 
 const API_URL = "http://localhost:8080/api";
 export const saveExpense = async (payload)=> {
-    console.log("Sending expense data:", payload);
     try {
     return await axios.post(`${API_URL}/log`, payload)
     } catch (error){
@@ -22,7 +21,7 @@ export const showAllExpenses = async ()=> {
 
 export const filterExpenses = async (category, date)=> {
     try {
-    return await axios.get(`${API_URL}/expenses`, {
+    return await axios.get(`${API_URL}/expenses/filter`, {
         params: {category, date}
     })
     } catch (error){

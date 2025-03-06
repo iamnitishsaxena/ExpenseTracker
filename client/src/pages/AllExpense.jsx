@@ -85,7 +85,7 @@ const AllExpense = () => {
     }, []);
 
     const applyFilters = async () => {
-        const formattedDate = date ? dayjs(date).format("MM/DD/YYYY") : null;
+        const formattedDate = date ? dayjs(date).format("YYYY-MM-DD") : null;
 
         const response = await filterExpenses(category, formattedDate);
         if (response?.data) {
@@ -94,12 +94,14 @@ const AllExpense = () => {
     };
 
     const calcTotalExpense = async() => {
-        const formattedStartDate = startDate ? dayjs(startDate).format("MM/DD/YYYY") : null;
-        const formattedEndDate = endDate ? dayjs(endDate).format("MM/DD/YYYY") : null;
+        const formattedStartDate = startDate ? dayjs(startDate).format("YYYY-MM-DD") : null;
+        const formattedEndDate = endDate ? dayjs(endDate).format("YYYY-MM-DD") : null;
 
         const response = await getTotalExpenses(formattedStartDate, formattedEndDate);
-        if (response?.data) {
-            setTotalAmount(response.data);
+        if (response?.data?.total) {
+            setTotalAmount(response.data.total);
+        }else{
+            setTotalAmount(0);
         }
     };
 
@@ -151,7 +153,7 @@ const AllExpense = () => {
                     />
                 </LocalizationProvider>
 
-                <Button variant="contained" onClick={calcTotalExpense}>Apply</Button>
+                <Button variant="contained" onClick={calcTotalExpense}>Get Total Expenses</Button>
             </TotalExpenseContainer>
 
             <Box style={{ maxWidth: 1000, margin: "0 auto 40px auto" }} align="center">
